@@ -1,327 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>comproDLS™ | Service Explorer</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>comproDLS™ | Service Explorer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #89bf04;
+      padding: 1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: "Open Sans";
+      color: white;
+      text-decoration: none;
+      font-size: 26px;
+      line-height: 40px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav .nav-links a {
+      font-size: 22px;
+    }
+
+    nav .nav-links button {
+      border-radius: 18px;
+      padding: 4px 12px;
+      background-color: white;
+      border: none;
+      color: #425d00;
+    }
+
+    #loader {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ccc;
+      /* Light grey */
+      border-top: 4px solid #555;
+      /* Dark grey */
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 50px auto;
+    }
+
+    /* Spinner animation */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
       }
 
-      header {
-        background-color: #89bf04;
-        padding: 1rem;
+      100% {
+        transform: rotate(360deg);
       }
+    }
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1rem;
-      }
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background-color: #f9fdef;
+    }
 
-      nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+    .icon-bg {
+      padding: 1rem;
+    }
 
-      nav a {
-        font-family: "Open Sans";
-        color: white;
-        text-decoration: none;
-        font-size: 26px;
-        line-height: 40px;
-      }
+    #custom-icon {
+      background: #e4f1c3;
+      border-radius: 100%;
+      color: #89bf04;
+      display: table-cell;
+      font-size: 60px;
+      height: 60px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.5s;
+      vertical-align: middle;
+      width: 60px;
+    }
 
-      .nav-links {
-        display: flex;
-        gap: 2rem;
-      }
+    .media-heading {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
 
-      nav .nav-links a {
-        font-size: 22px;
-      }
-      
-      nav .nav-links button {
-        border-radius: 18px;
-        padding: 4px 12px;
-        background-color: white;
-        border: none;
-        color: #425d00;
-      }
+    .media-heading-primary {
+      font-family: "Open Sans";
+      font-size: 45px;
+      font-weight: normal;
+      color: #373737;
+      -webkit-filter: drop-shadow(1px 1px 0.8px #777777);
+      filter: drop-shadow(1px 1px 0.8px #777777);
+    }
 
-      .hero {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        background-color: #f9fdef;
-      }
+    .media-heading-secondary {
+      font-weight: bolder;
+    }
 
-      .icon-bg {
-        padding: 1rem;
-      }
+    .media-body p {
+      font-family: "Open Sans";
+      font-weight: normal;
+      font-size: 18px;
+      color: #1b1b1b;
+    }
 
-      #custom-icon {
-        background: #e4f1c3;
-        border-radius: 100%;
-        color: #89bf04;
-        display: table-cell;
-        font-size: 60px;
-        height: 60px;
-        padding: 20px;
-        text-align: center;
-        transition: 0.5s;
-        vertical-align: middle;
-        width: 60px;
-      }
+    .service-box-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      background-color: white;
+      padding-top: 2rem;
+    }
 
-      .media-heading {
-        margin-top: 15px;
-        margin-bottom: 15px;
-      }
-
-      .media-heading-primary {
-        font-family: "Open Sans";
-        font-size: 45px;
-        font-weight: normal;
-        color: #373737;
-        -webkit-filter: drop-shadow(1px 1px 0.8px #777777);
-        filter: drop-shadow(1px 1px 0.8px #777777);
-      }
-
-      .media-heading-secondary {
-        font-weight: bolder;
-      }
-
-      .media-body p {
-        font-family: "Open Sans";
-        font-weight: normal;
-        font-size: 18px;
-        color: #1b1b1b;
-      }
-
+    @media (min-width: 768px) {
       .service-box-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        background-color: white;
-        padding-top: 2rem;
+        grid-template-columns: repeat(3, 1fr);
       }
+    }
 
-      @media (min-width: 768px) {
-        .service-box-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
+    .service-box {
+      background: #fdfdfd;
+      border: 1px solid #89bf04;
+      padding: 8px 20px;
+      min-height: 240px;
+    }
 
-      .service-box {
-        background: #fdfdfd;
-        border: 1px solid #89bf04;
-        padding: 8px 20px;
-        min-height: 240px;
-      }
+    .service-box:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-      .service-box:hover {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
+    .service-box h2 {
+      margin-top: 0;
+    }
 
-      .service-box h2 {
-        margin-top: 0;
-      }
+    .service-box a {
+      font-family: "Open Sans";
+      color: #1a73e8;
+      text-decoration: none;
+      display: block;
+      margin-top: 0.5rem;
+    }
 
-      .service-box a {
-        font-family: "Open Sans";
-        color: #1a73e8;
-        text-decoration: none;
-        display: block;
-        margin-top: 0.5rem;
-      }
+    .service-box a:hover {
+      text-decoration: underline;
+    }
 
-      .service-box a:hover {
-        text-decoration: underline;
-      }
+    .service-box p {
+      font-family: "Open Sans";
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.4;
+      color: #727272;
+      padding-top: 10px;
+    }
 
-      .service-box p {
-        font-family: "Open Sans";
-        font-size: 14px;
-        font-weight: normal;
-        line-height: 1.4;
-        color: #727272;
-        padding-top: 10px;
-      }
+    .service-shortcuts {
+      margin-left: 0px;
+      padding-left: 0px;
+      border-top: 1px dashed #c6c6c6;
+      padding-top: 10px;
+    }
 
-      .service-shortcuts {
-        margin-left: 0px;
-        padding-left: 0px;
-        border-top: 1px dashed #c6c6c6;
-        padding-top: 10px;
-      }
+    .service-shortcuts span a {
+      display: inline;
+      border-bottom: 1px solid;
+      text-decoration: none !important;
+      font-size: 16px;
+      font-weight: normal;
+      color: #205f9f;
+      line-height: 1.8;
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
 
-      .service-shortcuts span a {
-        display: inline;
-        border-bottom: 1px solid;
-        text-decoration: none !important;
-        font-size: 16px;
-        font-weight: normal;
-        color: #205f9f;
-        line-height: 1.8;
-      }
-    </style>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <nav>
-          <a href="#">comproDLS™ | Service Explorer</a>
-          <div class="nav-links">
-            <button id="logout-btn">Logout</button>
-          </div>
-        </nav>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#">comproDLS™ | Service Explorer</a>
+        <div class="nav-links">
+          <button id="logout-btn">Logout</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="p-5 hero">
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="icon-bg me-4">
+        <i id="custom-icon" class="fa fa-life-ring" aria-hidden="true"></i>
       </div>
-    </header>
-
-    <div class="p-5 hero">
-      <div class="container d-flex justify-content-center align-items-center">
-        <div class="icon-bg me-4">
-          <i id="custom-icon" class="fa fa-life-ring" aria-hidden="true"></i>
-        </div>
-        <div class="media-body">
-          <h2 class="media-heading">
-            <span class="media-heading-primary">comproDLS™</span>
-            <span class="media-heading-primary media-heading-secondary"
-              >Learning Stack</span
-            >
-          </h2>
-          <p>
-            A set of cloud-hosted APIs, components and data-stores which forms
-            the core foundation of any next-gen learning solution.
-          </p>
-        </div>
+      <div class="media-body">
+        <h2 class="media-heading">
+          <span class="media-heading-primary">comproDLS™</span>
+          <span class="media-heading-primary media-heading-secondary">Learning Stack</span>
+        </h2>
+        <p>
+          A set of cloud-hosted APIs, components and data-stores which forms
+          the core foundation of any next-gen learning solution.
+        </p>
       </div>
     </div>
+  </div>
 
-    <main class="container">
-      <div class="service-box-grid" id="api-data-container">
-        <!-- API data will be dynamically inserted here -->
-      </div>
-      <hr />
-      <footer>
-        <p>© 2017 Compro Technologies All Rights Reserved</p>
-      </footer>
-    </main>
+  <main class="container">
+    <div id="loader"></div>
+    <div class="service-box-grid" id="api-data-container">
+      <!-- API data will be dynamically inserted here -->
+    </div>
+    <hr />
+    <footer>
+      <p>© 2024 Compro Technologies All Rights Reserved</p>
+    </footer>
+  </main>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        netlifyIdentity.init();
-  
-        // Check if the user is logged in
-        const user = netlifyIdentity.currentUser();
-        if (!user) {
-          // Redirect to login page if not logged in
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      netlifyIdentity.init();
+
+      // Check if the user is logged in
+      const user = netlifyIdentity.currentUser();
+      if (!user) {
+        // Redirect to login page if not logged in
+        window.location.href = 'home.html';
+      }
+
+      // Logout functionality
+      document.getElementById('logout-btn').addEventListener('click', function () {
+        netlifyIdentity.logout();
+
+        // Wait for the logout event before redirecting
+        netlifyIdentity.on('logout', () => {
           window.location.href = 'home.html';
-        }
-  
-        // Logout functionality
-        document.getElementById('logout-btn').addEventListener('click', function () {
-          netlifyIdentity.logout();
+        });
+      });
 
-          // Wait for the logout event before redirecting
-          netlifyIdentity.on('logout', () => {
-            window.location.href = 'home.html';
-          });
+    });
+  </script>
+  <script>
+    const API_KEY = "bad0725a-e97a-4759-a1e9-119be9ce0efa";
+    const API_URL = "https://api.swaggerhub.com/apis/ComproHO";
+    const loader = document.getElementById('loader');
+
+    async function fetchApiData() {
+      try {
+        loader.style.display = 'block'; // Show the loader
+        const response = await fetch(API_URL, {
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+          },
         });
 
-      });
-    </script>
-    <script>
-      const API_KEY = "bad0725a-e97a-4759-a1e9-119be9ce0efa";
-      const API_URL = "https://api.swaggerhub.com/apis/ComproHO";
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
 
-      async function fetchApiData() {
-        try {
-          const response = await fetch(API_URL, {
-            headers: {
-              Authorization: `Bearer ${API_KEY}`,
-            },
-          });
+        const data = await response.json();
 
-          if (!response.ok) {
-            throw new Error(`Error: ${response.status} ${response.statusText}`);
-          }
+        // Update the DOM with fetched data
+        const container = document.getElementById("api-data-container");
 
-          const data = await response.json();
+        // Sort the data.apis array by item.name
+        data.apis.sort((a, b) => a.name.localeCompare(b.name));
 
-          // Update the DOM with fetched data
-          const container = document.getElementById("api-data-container");
-          data.apis.forEach(async (item) => {
-            const serviceBox = document.createElement("div");
-            serviceBox.className = "service-box";
+        const tags = await Promise.all(data.apis.map(async (api) => {
+          return fetchTag(api.name, api.properties[0].url);
+        }));
 
-            // Fetch the URL from item.properties[0].url
-            const response = await fetch(item.properties[0].url, {
-              headers: {
-                Authorization: `Bearer ${API_KEY}`,
-              },
-            });
-            const linksData = await response.json();
+        const tagsLink = {};
+        tags.forEach((tag) => {
+          const key = Object.keys(tag)[0];
+          const value = Object.values(tag)[0];
+          tagsLink[key] = value;
+        })
 
-            // Extract the version from item.properties[0].url
-            const urlParts = item.properties[0].url.split("/");
-            const version = urlParts[urlParts.length - 1].split("#")[0];
+        loader.style.display = 'none'; // Hide the loader
+        // Generate HTML
+        data.apis.map((api) => {
+          const serviceBox = document.createElement("div");
+          serviceBox.className = "service-box";
+          const swOrg = 'ComproHO';
 
-            // Assuming linksData.paths is an object with path items
-            const uniqueTags = new Set();
+          const version = api.properties.find((prop) => prop.type === "X-Version").value;
 
-            Object.values(linksData.paths).forEach((pathItem) => {
-              if (pathItem.get && pathItem.get.tags) {
-                pathItem.get.tags.forEach((tag) => uniqueTags.add(tag));
-              }
-            });
+          const apiUrl = api.properties.find((prop) => prop.type === "Swagger").url;
+          const urlObj = new URL(apiUrl);
+          const segments = urlObj.pathname.split('/');
+          const index = segments.indexOf(swOrg);
+          const apiPathName = index !== -1 && index + 1 < segments.length ? segments[index + 1] : null;
 
-            const tagsArray = Array.from(uniqueTags)
-              .map((tag, index, array) => {
-                const separator = index < array.length - 1 ? ", " : "";
-                const link = `https://app.swaggerhub.com/apis-docs/ComproHO/${item.name}/${version}#/${tag}`;
-                return `<span class="tag"><a href="${link}">${tag}</a>${separator}</span>`;
-              })
-              .join("");
+          const tagsArray = Array.from(tagsLink[api.name])
+            .map((tag, index, array) => {
+              const separator = index < array.length - 1 ? ", " : "";
+              const link = `https://app.swaggerhub.com/apis-docs/${swOrg}/${apiPathName}/${version}#/${tag}`;
+              return `<span class="tag"><a href="${link}">${tag}</a>${separator}</span>`;
+            })
+            .join("");
 
-            serviceBox.innerHTML = `
-              <h2>${item.name}</h2>
-              <p>${item.description}</p>
+          serviceBox.innerHTML = `
+              <h2>${api.name}</h2>
+              <p>${api.description}</p>
               <div class="service-shortcuts">
                 ${tagsArray}
               </div>
             `;
-            container.appendChild(serviceBox);
-          });
-        } catch (error) {
-          console.error("API fetch error:", error);
-        }
-      }
+          container.appendChild(serviceBox);
+        })
 
-      document.addEventListener("DOMContentLoaded", fetchApiData);
-    </script>
-      
-  </body>
+      } catch (error) {
+        console.error("API fetch error:", error);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", fetchApiData);
+
+    async function fetchTag(name, url) {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      });
+      const linksData = await response.json();
+
+      // Assuming linksData.paths is an object with path items
+      const uniqueTags = new Set();
+
+      Object.values(linksData.paths).forEach((pathItem) => {
+        if (pathItem.get && pathItem.get.tags) {
+          pathItem.get.tags.forEach((tag) => uniqueTags.add(tag));
+        }
+      });
+
+      return { [name]: uniqueTags };
+    }
+  </script>
+</body>
+
 </html>
