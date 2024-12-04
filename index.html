@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netlify Identity Example</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+  <!-- Button to open the identity widget -->
+  <button id="login-btn">Login</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Initialize the widget
+      netlifyIdentity.init();
+
+      // Show login/signup popup when button is clicked
+      document.getElementById('login-btn').addEventListener('click', function () {
+        netlifyIdentity.open();
+      });
+
+      // Listen for login events
+      netlifyIdentity.on('login', user => {
+        console.log('User logged in:', user);
+        netlifyIdentity.close();
+      });
+
+      // Listen for logout events
+      netlifyIdentity.on('logout', () => {
+        console.log('User logged out');
+      });
+    });
+  </script>
+
+</body>
+</html>
