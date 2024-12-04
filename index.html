@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netlify Identity Example</title>
+  <title>Login Page</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
@@ -13,7 +13,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Initialize the widget
       netlifyIdentity.init();
 
       // Show login/signup popup when button is clicked
@@ -21,13 +20,15 @@
         netlifyIdentity.open();
       });
 
-      // Listen for login events
+      // Redirect user after successful login
       netlifyIdentity.on('login', user => {
         console.log('User logged in:', user);
         netlifyIdentity.close();
+        // Redirect to the protected page
+        window.location.href = 'auth-protected.html';
       });
 
-      // Listen for logout events
+      // Listen for logout events (if needed)
       netlifyIdentity.on('logout', () => {
         console.log('User logged out');
       });
