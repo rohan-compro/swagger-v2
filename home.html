@@ -32,11 +32,6 @@
         // Redirect to the protected page
         window.location.href = 'dashboard.html';
       });
-
-      // Listen for logout events (if needed)
-      netlifyIdentity.on('logout', () => {
-        console.log('User logged out');
-      });
     });
   </script>
 

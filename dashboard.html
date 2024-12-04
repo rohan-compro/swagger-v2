@@ -244,8 +244,13 @@
         // Logout functionality
         document.getElementById('logout-btn').addEventListener('click', function () {
           netlifyIdentity.logout();
-          window.location.href = 'home.html';
+
+          // Wait for the logout event before redirecting
+          netlifyIdentity.on('logout', () => {
+            window.location.href = 'home.html';
+          });
         });
+
       });
     </script>
     <script>
