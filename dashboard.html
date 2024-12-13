@@ -299,8 +299,29 @@
         // Update the DOM with fetched data
         const container = document.getElementById("api-data-container");
 
+        const apiOrder = [
+          "Products",
+          "Taxonomy and Tags",
+          "Users",
+          "Invitations",
+          "Classes and Groups",
+          "Schools, Institutions and Spaces",
+          "Learning events",
+          "Analytics",
+          "Workflows and Integrations",
+          "Assigned Paths",
+          "Attempts",
+          "Rules",
+          "Communications and Notifications"
+        ];
         // Sort the data.apis array by item.name
-        data.apis.sort((a, b) => a.name.localeCompare(b.name));
+        // data.apis.sort((a, b) => a.name.localeCompare(b.name));
+        // Sort the data.apis array by the order specified in apiOrder, ignoring case
+        data.apis.sort((a, b) => {
+          const indexA = apiOrder.findIndex(item => item.toLowerCase() === a.name.toLowerCase());
+          const indexB = apiOrder.findIndex(item => item.toLowerCase() === b.name.toLowerCase());
+          return (indexA === -1 ? apiOrder.length : indexA) - (indexB === -1 ? apiOrder.length : indexB);
+        });
 
         const tags = await Promise.all(data.apis.map(async (api) => {
           return fetchTag(api.name, api.properties[0].url);
